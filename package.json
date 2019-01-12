@@ -1,0 +1,23 @@
+{
+  "name": "cheatsheet-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eleventy.js",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bendera/cheatsheet-builder.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bendera/cheatsheet-builder/issues"
+  },
+  "homepage": "https://github.com/bendera/cheatsheet-builder#readme",
+  "devDependencies": {
+    "eleventy": "^0.2.0"
+  }
+}
