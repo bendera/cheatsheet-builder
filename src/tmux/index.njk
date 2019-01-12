@@ -4,4 +4,11 @@ title: Tmux Cheatsheet
 tags: cheatsheet
 orientation: portrait
 ---
-<p>tmux cheatsheet</p>
+{% from 'macros.njk' import key %}
+
+{% row %}
+  {% col %}
+    <p>tmux cheatsheet</p>
+    {% key 'Ctrl+B,D' %}
+  {% endcol %}
+{% endrow %}

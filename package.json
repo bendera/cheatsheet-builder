@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node ./buildcss && eleventy",
     "serve": "eleventy --serve",
-    "serve:styles": "node ./buildcss --watch"
+    "serve:styles": "node ./buildcss --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,9 @@
     "url": "https://github.com/bendera/cheatsheet-builder/issues"
   },
   "homepage": "https://github.com/bendera/cheatsheet-builder#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
   "dependencies": {
     "autoprefixer": "^9.4.4",
     "chokidar": "^2.0.4",
