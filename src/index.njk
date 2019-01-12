@@ -1,4 +1,8 @@
 ---
 layout: default
 ---
-<p>index</p>
+<ul>
+{% for item in collections.cheatsheet %}
+  <li><a href="{{ item.fileSlug }}">{{ item.data.title }}</a></li>
+{% endfor %}
+</ul>
