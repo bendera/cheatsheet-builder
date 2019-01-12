@@ -17,7 +17,16 @@
     "url": "https://github.com/bendera/cheatsheet-builder/issues"
   },
   "homepage": "https://github.com/bendera/cheatsheet-builder#readme",
-  "devDependencies": {
-    "eleventy": "^0.2.0"
+  "devDependencies": {},
+  "dependencies": {
+    "autoprefixer": "^9.4.4",
+    "eleventy": "^0.2.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.3",
+    "postcss": "^7.0.10",
+    "precss": "^4.0.0"
   }
 }

@@ -1,2 +1,4 @@
 dist/
 node_modules/
+src/_assets/styles/main.css
+src/_assets/styles/main.css.map
