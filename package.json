@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/bendera/cheatsheet-builder#readme",
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "postcss-import": "^12.0.1"
   },
   "dependencies": {
     "autoprefixer": "^9.4.4",

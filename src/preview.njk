@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+<a download id="pdf-download">pdf</a>
 <div class="page-preview">
   <div class="page-preview__content">
     <div>
@@ -17,9 +18,13 @@ window.__setCheatsheetPreview__ = function(data) {
 document.addEventListener('DOMContentLoaded', function() {
   var iframe = document.getElementById('preview-frame');
   var matches = /page=([a-zA-Z0-9_\-]+)/.exec(document.location.href);
+  var slug;
 
   if (matches !== null){
-    iframe.src = '/cheatsheets/' + matches[1];
+    slug = matches[1];
+    iframe.src = '/cheatsheets/' + slug;
+
+    document.getElementById('pdf-download').href = '../pdf/' + slug + '.pdf';
   }
 });
 </script>
