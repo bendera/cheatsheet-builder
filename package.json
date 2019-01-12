@@ -4,8 +4,9 @@
   "description": "",
   "main": ".eleventy.js",
   "scripts": {
-    "build": "eleventy",
-    "serve": "eleventy --serve"
+    "build": "node ./buildcss && eleventy",
+    "serve": "eleventy --serve",
+    "serve:styles": "node ./buildcss --watch"
   },
   "repository": {
     "type": "git",
