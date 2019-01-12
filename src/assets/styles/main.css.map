@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/main.pcss"],"names":[],"mappings":"AACE;IACE,oBAAa;IAAb,qBAAa;IAAb,oBAAa;IAAb,aAAa;EACf","file":"main.css","sourcesContent":[".foo {\n  .bar {\n    display: flex;\n  }\n}"]}

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+rm -rf dist/pdf
+mkdir dist/pdf
+
 IFS='|' read -r -a files <<< $(cat dist/buildparams.txt)
 
 for f in "${files[@]}"
@@ -8,10 +11,10 @@ do
   slug="${finfo[0]}"
   orientation="${finfo[1]}"
 
-  echo [wkhtmltopdf] Build dist/$slug/cheatsheet.pdf
+  echo [wkhtmltopdf] Build dist/cheatsheets/$slug/cheatsheet.pdf
 
   wkhtmltopdf \
-    --log-level warn \
+    --log-level info \
     --orientation $orientation \
     --disable-smart-shrinking \
     --zoom 1 \
@@ -19,5 +22,5 @@ do
     -R 10mm \
     -B 10mm \
     -L 10mm \
-    dist/$slug/index.html dist/$slug/cheatsheet.pdf
+    dist/cheatsheets/$slug/index.html dist/pdf/$slug.pdf
 done
