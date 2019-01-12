@@ -3,6 +3,6 @@ layout: default
 ---
 <ul>
 {% for item in collections.cheatsheet %}
-  <li><a href="{{ item.fileSlug }}">{{ item.data.title }}</a></li>
+  <li><a href="/preview?page={{ item.fileSlug }}">{{ item.data.title }}</a></li>
 {% endfor %}
 </ul>

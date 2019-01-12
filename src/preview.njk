@@ -2,7 +2,24 @@
 layout: default
 ---
 <div class="page-preview">
-    <div class="page-preview__content">
-        <iframe src="template1.html" frameborder="0"></iframe>
+  <div class="page-preview__content">
+    <div>
+      <pre id="cheatsheet-info"></pre>
     </div>
+    <iframe src="/tmux" frameborder="0" id="preview-frame"></iframe>
+  </div>
 </div>
+<script>
+window.__setCheatsheetPreview__ = function(data) {
+  document.getElementById('cheatsheet-info').innerHTML = JSON.stringify(data);
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  var iframe = document.getElementById('preview-frame');
+  var matches = /page=([a-zA-Z0-9_\-]+)/.exec(document.location.href);
+
+  if (matches !== null){
+    iframe.src = '/' + matches[1];
+  }
+});
+</script>
