@@ -4,7 +4,8 @@
   "description": "",
   "main": ".eleventy.js",
   "scripts": {
-    "build": "node ./buildcss && eleventy",
+    "build": "node ./buildcss && eleventy && ./build-pdf.sh",
+    "build:html": "node ./buildcss && eleventy",
     "serve": "eleventy --serve",
     "serve:styles": "node ./buildcss --watch",
     "test": "jest"
