@@ -6,7 +6,10 @@
   "scripts": {
     "build": "node ./buildcss && eleventy && ./build-pdf.sh",
     "build:html": "node ./buildcss && eleventy",
-    "serve": "eleventy --serve",
+    "build:styles": "node ./buildcss",
+    "clean": "./clean.sh",
+    "serve": "node ./buildcss && eleventy --serve",
+    "serve:html": "eleventy --serve",
     "serve:styles": "node ./buildcss --watch",
     "test": "jest"
   },
@@ -21,12 +24,12 @@
   },
   "homepage": "https://github.com/bendera/cheatsheet-builder#readme",
   "devDependencies": {
-    "jest": "^23.6.0",
-    "postcss-import": "^12.0.1"
+    "jest": "^23.6.0"
   },
   "dependencies": {
     "autoprefixer": "^9.4.4",
     "chokidar": "^2.0.4",
+    "cssnano": "^4.1.8",
     "eleventy": "^0.2.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -34,6 +37,8 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
     "postcss": "^7.0.10",
+    "postcss-css-variables": "^0.11.0",
+    "postcss-import": "^12.0.1",
     "precss": "^4.0.0"
   }
 }

@@ -15,17 +15,17 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addShortcode(name, shortcodes.single[name]);
   });
 
-  eleventyConfig.addPassthroughCopy('src/assets/styles/main.css');
+  eleventyConfig.addPassthroughCopy('src/eleventy/assets/styles');
+  eleventyConfig.addPassthroughCopy('src/eleventy/assets/fonts');
 
   return {
     templateFormats:[
       'njk',
       'css',
-      'map',
     ],
     passthroughFileCopy: true,
     dir: {
-      input: "src",
+      input: "src/eleventy",
       output: "dist"
     }
   };

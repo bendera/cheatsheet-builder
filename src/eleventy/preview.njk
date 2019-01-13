@@ -1,0 +1,57 @@
+---
+layout: default
+---
+<div>
+  <pre id="cheatsheet-info"></pre>
+</div>
+{% for item in collections.cheatsheet %}
+  <li><a href="/cheatsheets/{{ item.fileSlug }}" class="js-pager-link">{{ item.data.title }}</a></li>
+{% endfor %}
+<a download id="pdf-download">pdf</a>
+<div class="page-preview" id="page-preview">
+  <div class="page-preview__content">
+    <iframe frameborder="0" id="preview-frame"></iframe>
+  </div>
+</div>
+<script>
+window.__setCheatsheetPreview__ = function(data) {
+  document.getElementById('cheatsheet-info').innerHTML = JSON.stringify(data);
+
+  var page = document.getElementById('page-preview');
+
+  page.classList
+    .remove('page-preview--portrait', 'page-preview--landscape');
+  page.classList
+    .add(data.orientation ? 'page-preview--' + data.orientation : 'page-preview--portrait');
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  var iframe = document.getElementById('preview-frame');
+  var matches = /page=([a-zA-Z0-9_\-]+)/.exec(document.location.href);
+  var slug;
+
+  if (matches !== null){
+    slug = matches[1];
+    iframe.src = '/cheatsheets/' + slug;
+
+    document.getElementById('pdf-download').href = '../pdf/' + slug + '.pdf';
+  }
+});
+
+(function() {
+  let links = document.getElementsByClassName('js-pager-link');
+
+  function pagerLinkHandler(event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    let iframe = document.getElementById('preview-frame');
+
+    iframe.src = event.target.href;
+  }
+
+  for (let item of links) {
+    item.addEventListener('click', pagerLinkHandler);
+  }
+})();
+</script>

@@ -2,10 +2,21 @@
   background-color: #fff;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
-  margin: 50px auto;
   height: 795px;
+  margin: 50px auto;
   padding: 27px;
+  transition: all 400ms ease-in-out;
   width: 562px;
+}
+
+.page-preview.page-preview--portrait {
+  height: 795px;
+  width: 562px;
+}
+
+.page-preview.page-preview--landscape {
+  height: 562px;
+  width: 795px;
 }
 
 .page-preview__content {

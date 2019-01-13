@@ -1,23 +1,30 @@
-const autoprefixer = require('autoprefixer');
-const postcss = require('postcss');
-const pcssImport = require('postcss-import');
-const precss = require('precss');
-const fs = require('fs');
 const chokidar = require('chokidar');
+const fs = require('fs');
+const postcss = require('postcss');
+const postcssAutoprefixer = require('autoprefixer');
+const postcssImport = require('postcss-import');
+const postcssCssVariables = require('postcss-css-variables');
+const postcssCssnano = require('cssnano');
 
-const from = 'src/assets/styles/src/main.pcss';
-const to = 'src/assets/styles/main.css';
+const inputDir = 'src/styles/';
+const outputDir = 'src/eleventy/assets/styles/';
+const files = ['main.css', 'cheatsheets.css'];
 
 const watch = process.argv.indexOf('--watch') > -1;
 
 let started = false;
 
-function buildCss() {
+function buildCss(from, to) {
   fs.readFile(from, (err, css) => {
+    if (err) {
+      throw err;
+    }
+
     postcss([
-      pcssImport(),
-      precss,
-      autoprefixer({ browsers: 'last 2 version, chrome >= 13' }),
+      postcssImport(),
+      postcssCssVariables(),
+      postcssAutoprefixer({ browsers: 'last 2 version, chrome >= 13' }),
+      postcssCssnano(),
     ])
       .process(css, {
         from,
@@ -31,17 +38,24 @@ function buildCss() {
         }
 
         // eslint-disable-next-line no-console
-        console.log('[CSS builder] css compiled');
+        console.log(`[CSS builder] File ${from} has been compiled`);
         started = true;
       })
       .catch((e) => {
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   });
 }
 
+function buildAll() {
+  files.forEach((file) => {
+    buildCss(inputDir + file, outputDir + file);
+  });
+}
+
 if (watch) {
-  const watcher = chokidar.watch('src/assets/styles/src/**/*');
+  const watcher = chokidar.watch('src/styles/**/*');
 
   watcher.on('add', (path) => {
     if (!started) {
@@ -50,23 +64,23 @@ if (watch) {
 
     // eslint-disable-next-line no-console
     console.log(`[CSS builder] File ${path} has been added`);
-    buildCss();
+    buildAll();
   });
 
   watcher.on('change', (path) => {
     // eslint-disable-next-line no-console
     console.log(`[CSS builder] File ${path} has been changed`);
-    buildCss();
+    buildAll();
   });
 
   watcher.on('unlink', (path) => {
     // eslint-disable-next-line no-console
     console.log(`[CSS builder] File ${path} has been removed`);
-    buildCss();
+    buildAll();
   });
 
   // eslint-disable-next-line no-console
   console.log('[CSS builder] Listening to css changes...');
 }
 
-buildCss();
+buildAll();

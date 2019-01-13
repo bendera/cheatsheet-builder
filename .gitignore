@@ -1,4 +1,6 @@
+.vscode/
+
 dist/
 node_modules/
-src/assets/styles/main.css
-src/assets/styles/main.css.map
+src/eleventy/assets/styles/*.css
+src/eleventy/assets/styles/*.map

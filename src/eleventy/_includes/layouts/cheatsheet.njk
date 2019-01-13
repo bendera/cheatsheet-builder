@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="../../assets/styles/cheatsheets.css">
+  {% if customCss %}
+    <link rel="stylesheet" href="{{customCss}}">
+  {% endif %}
+</head>
+<body>
+  <div class="page" id="page">
+    {{ content | safe }}
+  </div>
+  <script>
+  window.__cheatsheetMetadata__ = {
+    title: '{{ title }}',
+    description: '{{ description }}',
+    orientation: '{{ orientation }}'
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (parent.__setCheatsheetPreview__) {
+      document.getElementsByTagName('html')[0].classList.add('preview');
+      parent.__setCheatsheetPreview__(window.__cheatsheetMetadata__);
+    }
+  });
+  </script>
+</body>
+</html>
