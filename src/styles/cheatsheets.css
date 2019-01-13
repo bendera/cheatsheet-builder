@@ -2,5 +2,8 @@
 @import url(includes/common.css);
 @import url(includes/fonts.css);
 
-@import url(partials/page.css);
+@import url(partials/col.css);
 @import url(partials/key.css);
+@import url(partials/page-preview.css);
+@import url(partials/page.css);
+@import url(partials/row.css);

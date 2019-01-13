@@ -24,10 +24,24 @@ function key(sequence) {
   return html;
 }
 
+function code(slot, style = 'default') {
+  return `<code class="code code--${style}">${slot}</code>`;
+}
+
+function table(slot) {
+  return slot;
+}
+
+function tr(...cells) {
+  
+}
+
 module.exports = {
   paired: {
     row,
     col,
+    table,
+    code,
   },
   single: {
     key,

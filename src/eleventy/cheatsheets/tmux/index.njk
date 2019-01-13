@@ -7,13 +7,20 @@ orientation: landscape
 customCss: tmux.css
 ---
 {% row %}
-  {% col %}
-    <p>tmux cheatsheet</p>
+  {% col 4 %}
     {% key 'Ctrl+B,D' %}
-    <div>Lorem i</div>
-    <div class="test">Lorem ipsum dolor sit -> asfasfasfsaf</div>
-    <div class="test2">Lorem ipsum dolor sit -> asfasfasfsaf</div>
-    <div class="test3">Lorem ipsum dolor sit -> asfasfasfsaf</div>
-    <div class="test4">Lorem ipsum dolor sit -> asfasfasfsaf</div>
+  {% endcol %}
+  {% col 4 %}
+    {% key 'Ctrl+B,D' %}
+  {% endcol %}
+  {% col 4 %}
+    {% key 'Ctrl+B,D' %}
   {% endcol %}
 {% endrow %}
+
+{# 
+{% table %}
+  {% thead 'lorem', 'ipsum', 'dolor' %}
+  {% tr 'aaa', 'ahsfg hasg fjhasg jkh f', 'ajksfhkag fkajsgh' %}
+{% endtable %}
+ #}

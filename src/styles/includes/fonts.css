@@ -1,10 +1,23 @@
 @font-face {
   font-family: 'noto_mono_regular';
-  src: url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.eot');
-  src: url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.woff') format('woff'),
-        url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.ttf') format('truetype'),
-        url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.svg#noto_monoregular') format('svg');
+  src: url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.woff') format('woff'),
+       url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.svg#noto_monoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'open_sansbold';
+  src: url('../fonts/opensans_bold_macroman/OpenSans-Bold-webfont.woff') format('woff'),
+       url('../fonts/opensans_bold_macroman/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'open_sansregular';
+  src: url('../fonts/opensans_regular_macroman/OpenSans-Regular-webfont.woff') format('woff'),
+       url('../fonts/opensans_regular_macroman/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
