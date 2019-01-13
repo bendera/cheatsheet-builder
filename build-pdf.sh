@@ -14,7 +14,7 @@ do
   echo [wkhtmltopdf] Build dist/cheatsheets/$slug/cheatsheet.pdf
 
   wkhtmltopdf \
-    --log-level info \
+    --log-level warn \
     --orientation $orientation \
     --disable-smart-shrinking \
     --zoom 1 \
