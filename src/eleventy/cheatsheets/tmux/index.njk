@@ -8,7 +8,17 @@ customCss: tmux.css
 ---
 {% row %}
   {% col 4 %}
+
     {% key 'Ctrl+B,D' %}
+
+    {% table bordered, zebra %}
+      {% tcaption 'Demo table' %}
+      {% thead 'lorem', 'ipsum', 'dolor' %}
+      {% tr '111', '222', '333' %}
+      {% tr '444', '555', '666' %}
+      {% tfoot 'lorem', 'ipsum', 'dolor' %}
+    {% endtable %}
+
   {% endcol %}
   {% col 4 %}
     {% key 'Ctrl+B,D' %}
@@ -17,10 +27,3 @@ customCss: tmux.css
     {% key 'Ctrl+B,D' %}
   {% endcol %}
 {% endrow %}
-
-{# 
-{% table %}
-  {% thead 'lorem', 'ipsum', 'dolor' %}
-  {% tr 'aaa', 'ahsfg hasg fjhasg jkh f', 'ajksfhkag fkajsgh' %}
-{% endtable %}
- #}

@@ -28,12 +28,53 @@ function code(slot, style = 'default') {
   return `<code class="code code--${style}">${slot}</code>`;
 }
 
-function table(slot) {
-  return slot;
+function table(slot, ...styles) {
+  let classes = [...styles];
+
+  classes = classes.map(e => `table--${e}`);
+  classes = ['table', ...classes];
+
+  return `<table class="${classes.join(' ')}">${slot}</table>`;
+}
+
+function tcaption(caption) {
+  return `<caption>${caption}</caption>`;
+}
+
+function tableRow(tag, ...cells) {
+  let html = '<tr>';
+
+  cells.forEach((val) => {
+    html += `<${tag}>${val}</${tag}>`;
+  });
+
+  html += '</tr>';
+
+  return html;
 }
 
 function tr(...cells) {
-  
+  return tableRow('td', ...cells);
+}
+
+function thead(...cells) {
+  let html = '<thead>';
+
+  html += tableRow('th', ...cells);
+
+  html += '</thead>';
+
+  return html;
+}
+
+function tfoot(...cells) {
+  let html = '<tfoot>';
+
+  html += tableRow('td', ...cells);
+
+  html += '</tfoot>';
+
+  return html;
 }
 
 module.exports = {
@@ -45,5 +86,9 @@ module.exports = {
   },
   single: {
     key,
+    tcaption,
+    tr,
+    thead,
+    tfoot,
   },
 };

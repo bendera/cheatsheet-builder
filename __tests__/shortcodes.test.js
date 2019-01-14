@@ -1,7 +1,12 @@
 const shortcodes = require('../shortcodes');
 
-const { col, row } = shortcodes.paired;
-const { key } = shortcodes.single;
+const { table, col, row } = shortcodes.paired;
+const {
+  key,
+  tr,
+  thead,
+  tfoot,
+} = shortcodes.single;
 
 test('row', () => {
   expect(row('<p>test</p>')).toBe('<div class="row"><p>test</p></div>');
@@ -24,5 +29,49 @@ describe('key', () => {
   test('Single key', () => {
     expect(key('Enter'))
       .toBe('<span class="shortcut"><span class="key">Enter</span></span>');
+  });
+});
+
+describe('table', () => {
+  test('Default style', () => {
+    expect(table('<tr><td>Lorem</td></tr>'))
+      .toBe('<table class="table"><tr><td>Lorem</td></tr></table>');
+  });
+  test('Multiple styles', () => {
+    expect(table('<tr><td>Lorem</td></tr>', 'lorem', 'ipsum'))
+      .toBe('<table class="table table--lorem table--ipsum"><tr><td>Lorem</td></tr></table>');
+  });
+});
+
+describe('tr', () => {
+  test('Single column', () => {
+    expect(tr('Lorem'))
+      .toBe('<tr><td>Lorem</td></tr>');
+  });
+  test('Multiple columns', () => {
+    expect(tr('Lorem', 'Ipsum', 'Dolor', 'Sit'))
+      .toBe('<tr><td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td></tr>');
+  });
+});
+
+describe('thead', () => {
+  test('Single column', () => {
+    expect(thead('Lorem'))
+      .toBe('<thead><tr><th>Lorem</th></tr></thead>');
+  });
+  test('Multiple columns', () => {
+    expect(thead('Lorem', 'Ipsum', 'Dolor', 'Sit'))
+      .toBe('<thead><tr><th>Lorem</th><th>Ipsum</th><th>Dolor</th><th>Sit</th></tr></thead>');
+  });
+});
+
+describe('tfoot', () => {
+  test('Single column', () => {
+    expect(tfoot('Lorem'))
+      .toBe('<tfoot><tr><td>Lorem</td></tr></tfoot>');
+  });
+  test('Multiple columns', () => {
+    expect(tfoot('Lorem', 'Ipsum', 'Dolor', 'Sit'))
+      .toBe('<tfoot><tr><td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td></tr></tfoot>');
   });
 });
