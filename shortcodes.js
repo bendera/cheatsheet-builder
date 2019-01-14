@@ -6,8 +6,8 @@ function col(slot, span = 1) {
   return `<div class="col col--span-${span}">${slot}</div>`;
 }
 
-function singleKey(code) {
-  return `<span class="key">${code}</span>`;
+function singleKey(keyLabel) {
+  return `<span class="key">${keyLabel}</span>`;
 }
 
 function key(sequence) {
