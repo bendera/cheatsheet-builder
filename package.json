@@ -11,7 +11,8 @@
     "serve": "node ./buildcss && eleventy --serve",
     "serve:html": "eleventy --serve",
     "serve:styles": "node ./buildcss --watch",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
