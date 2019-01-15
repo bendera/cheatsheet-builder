@@ -1,35 +1,65 @@
 /* eslint-disable no-console, no-restricted-syntax */
-
+const fs = require('fs');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+const rimraf = require('rimraf');
 
-async function buildPdf(slug) {
+async function buildPdf(params) {
+  const { slug, orientation } = params;
+
+  const paramList = [
+    'wkhtmltopdf',
+    '--log-level warn',
+    `--orientation ${orientation}`,
+    '--disable-smart-shrinking',
+    '--zoom 1',
+    '-T 10mm',
+    '-R 10mm',
+    '-B 10mm',
+    '-L 10mm',
+    `dist/cheatsheets/${slug}/index.html`,
+    `dist/pdf/${slug}.pdf`,
+  ];
+
   try {
-    await exec(`wkhtmltopdf --log-level warn --disable-smart-shrinking dist/cheatsheets/${slug}/index.html dist/pdf/${slug}.pdf`);
+    await exec(paramList.join(' '));
   } catch (e) {
-    throw e;
+    console.log('wkhtml error');
+    console.log('cmd:', e.cmd.trim());
+    console.log(e.stderr.trim());
+    process.exit(1);
   }
 
-  console.log(slug);
+  console.log(`[wkhtmltopdf] dist/pdf/${slug}.pdf created`);
 }
 
-async function buildAll(slugs) {
+async function buildAll(buildParams) {
   let res;
 
   try {
     res = await exec('wkhtmltopdf --version');
   } catch (e) {
-    throw e;
+    console.log(e.stderr);
+    process.exit(1);
   }
 
   if (!(/0.12.5/.test(res.stdout) && /qt/.test(res.stdout))) {
-    console.log('WARN: wkhtml version', res.stdout);
-    return;
+    console.log('WARN: Your wkhtmltopdf version is:', res.stdout.trim());
+    console.log('WARN: Preferred: wkhtmltopdf 0.12.5 (with patched qt)');
   }
 
-  for (const slug of slugs) {
-    buildPdf(slug);
+  for (const item of buildParams) {
+    buildPdf(item);
   }
 }
 
-buildAll(['git', 'tmux', 'vim']);
+fs.readFile('dist/buildparams.json', 'utf8', (err, data) => {
+  if (err) throw err;
+
+  rimraf('dist/pdf', () => {
+    fs.mkdir('dist/pdf', { recursive: true }, (e) => {
+      if (e) throw e;
+      buildAll(JSON.parse(data));
+    });
+  });
+});
