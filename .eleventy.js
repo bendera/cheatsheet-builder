@@ -1,4 +1,4 @@
-const shortcodes = require('./shortcodes');
+const shortcodes = require('./src/shortcodes');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addLayoutAlias('cheatsheet', 'layouts/cheatsheet.njk');
