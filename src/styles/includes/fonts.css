@@ -1,23 +1,27 @@
 @font-face {
   font-family: 'noto_mono_regular';
-  src: url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.woff') format('woff'),
-       url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.svg#noto_monoregular') format('svg');
+  src: url('../fonts/noto_mono_regular/NotoMono-Regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'open_sansbold';
-  src: url('../fonts/opensans_bold_macroman/OpenSans-Bold-webfont.woff') format('woff'),
-       url('../fonts/opensans_bold_macroman/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
+  src: url('../fonts/opensans_bold_macroman/OpenSans-Bold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'open_sansregular';
-  src: url('../fonts/opensans_regular_macroman/OpenSans-Regular-webfont.woff') format('woff'),
-       url('../fonts/opensans_regular_macroman/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+  src: url('../fonts/opensans_regular_macroman/OpenSans-Regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'source_code_pro_black';
+  src: url('../fonts/source_code_pro/SourceCodePro-Black.otf') format('otf');
   font-weight: normal;
   font-style: normal;
 }
