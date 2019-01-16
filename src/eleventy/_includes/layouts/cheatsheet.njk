@@ -16,13 +16,19 @@
   window.__cheatsheetMetadata__ = {
     title: '{{ title }}',
     description: '{{ description }}',
-    orientation: '{{ orientation }}'
+    orientation: '{{ orientation }}',
+    scale: '{{ scale }}'
   };
 
   document.addEventListener('DOMContentLoaded', function() {
     if (parent.__setCheatsheetPreview__) {
-      document.getElementsByTagName('html')[0].classList.add('preview');
-      parent.__setCheatsheetPreview__(window.__cheatsheetMetadata__);
+      var md = window.__cheatsheetMetadata__;
+      // preview zoom:
+      var zoom = 71;
+      var actualZoom = md.scale !== '' ? zoom * parseFloat(md.scale, 10) : zoom;
+
+      document.getElementsByTagName('html')[0].style.fontSize = actualZoom + '%';
+      parent.__setCheatsheetPreview__(md);
     }
   });
   </script>
