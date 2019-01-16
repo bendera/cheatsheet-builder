@@ -1,0 +1,33 @@
+.section {
+  border: 1px solid #b3b3b3;
+  font-size: rem(16px);
+  margin: rem(20px) 0;
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+.section--shaded {
+  box-shadow: 2px 2px 0 0 #ddd;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.section--rounded {
+  border-radius: rem(4px);
+}
+
+.section__header {
+  background-color: #b3b3b3;
+  color: #fff;
+  font-family: open_sansbold;
+  font-size: rem(18px);
+  font-weight: normal;
+  margin: 0;
+  padding: rem(4px) rem(10px);
+}
+
+.section__body {
+  padding: rem(10px);
+}

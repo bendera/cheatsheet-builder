@@ -1,7 +1,13 @@
 .table {
   border-collapse: collapse;
   border-width: 0;
+  font-size: rem(16px);
   width: 100%;
+}
+
+.table caption {
+  font-family: open_sansbold;
+  font-weight: normal;
 }
 
 .table.table--bordered {
@@ -9,18 +15,22 @@
   border-style: solid;
 }
 
-.table--zebra > tr:nth-child(odd),
-.table--zebra tbody tr:nth-child(odd) {
+.table--zebra > tr:nth-of-type(odd),
+.table--zebra tbody tr:nth-of-type(odd) {
   background-color: #e7e7e7;
 }
 
 .table.table--bordered th,
 .table.table--bordered td {
-  border-width: rem(1px);
+  border-width: 1px;
   border-style: solid;
 }
 
 .table th {
   font-family: open_sansbold;
   font-weight: normal;
+}
+
+.table td {
+  font-family: open_sansregular;
 }
