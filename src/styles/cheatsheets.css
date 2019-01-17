@@ -4,18 +4,27 @@
 
 @import url(prism-themes/prism-a11y-dark.css);
 @import url(prism-themes/prism-atom-dark.css);
-@import url(prism-themes/prism-base16-ateliersulphurpool.light.css);
+@import url(prism-themes/prism-default.css);
+@import url(prism-themes/prism-base16-ateliersulphurpool-light.css);
 @import url(prism-themes/prism-cb.css);
+@import url(prism-themes/prism-coy.css);
 @import url(prism-themes/prism-darcula.css);
+@import url(prism-themes/prism-dark.css);
+@import url(prism-themes/prism-default.css);
 @import url(prism-themes/prism-duotone-dark.css);
 @import url(prism-themes/prism-duotone-earth.css);
 @import url(prism-themes/prism-duotone-forest.css);
 @import url(prism-themes/prism-duotone-light.css);
 @import url(prism-themes/prism-duotone-sea.css);
 @import url(prism-themes/prism-duotone-space.css);
+@import url(prism-themes/prism-funky.css);
 @import url(prism-themes/prism-ghcolors.css);
 @import url(prism-themes/prism-hopscotch.css);
+@import url(prism-themes/prism-okaidia.css);
 @import url(prism-themes/prism-pojoaque.css);
+@import url(prism-themes/prism-solarizedlight.css);
+@import url(prism-themes/prism-tomorrow.css);
+@import url(prism-themes/prism-twilight.css);
 @import url(prism-themes/prism-vs.css);
 @import url(prism-themes/prism-xonokai.css);
 

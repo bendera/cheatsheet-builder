@@ -66,11 +66,11 @@ customCss: tmux.css
           {% tr '777', '888', '999' %}
           {% tfoot 'lorem', 'ipsum', 'dolor' %}
         {% endtable %}
-        {%- highlight "js" -%}
-function myFunction() {
-  return true;
-}
-        {%- endhighlight -%}
+        {% code "js", "default" %}
+        function myFunction() {
+          return true;
+        }
+        {% endcode %}
       </div>
     </section>
     {% key 'Ctrl+B,D' %}

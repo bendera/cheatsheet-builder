@@ -1,3 +1,6 @@
+const HighlightPairedShortcode = require('@11ty/eleventy-plugin-syntaxhighlight/src/HighlightPairedShortcode');
+const stripIndent = require('strip-indent');
+
 function row(slot) {
   return `<div class="row">${slot}</div>`;
 }
@@ -22,10 +25,6 @@ function key(sequence) {
   html += '</span>';
 
   return html;
-}
-
-function code(slot, style = 'default') {
-  return `<code class="code code--${style}">${slot}</code>`;
 }
 
 function table(slot, ...styles) {
@@ -73,6 +72,15 @@ function tfoot(...cells) {
   html += tableRow('td', ...cells);
 
   html += '</tfoot>';
+
+  return html;
+}
+
+function code(slot, lang, theme = 'default', highlightNumbers) {
+  let html = `<div class="${theme}">`;
+
+  html += HighlightPairedShortcode(stripIndent(slot), lang, highlightNumbers);
+  html += '</div>';
 
   return html;
 }

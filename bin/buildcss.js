@@ -5,6 +5,7 @@ const postcssAutoprefixer = require('autoprefixer');
 const postcssImport = require('postcss-import');
 const postcssCssVariables = require('postcss-css-variables');
 const postcssCssnano = require('cssnano');
+const postcssNested = require('postcss-nested');
 const postcssRem = require('postcss-rem');
 
 const inputDir = 'src/styles/';
@@ -24,6 +25,7 @@ function buildCss(from, to) {
     postcss([
       postcssImport(),
       postcssCssVariables(),
+      postcssNested(),
       postcssRem(),
       postcssAutoprefixer({ browsers: 'last 2 version, chrome >= 13' }),
       postcssCssnano(),
