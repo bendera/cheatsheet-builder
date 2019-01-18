@@ -1,4 +1,5 @@
 .col {
+  flex-basis: 100%;
   margin-left: rem(10px);
   margin-right: rem(10px);
 }
