@@ -5,3 +5,4 @@ dist/
 node_modules/
 src/eleventy/assets/styles/*.css
 src/eleventy/assets/styles/*.map
+config.js

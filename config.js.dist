@@ -1,0 +1,3 @@
+module.exports = {
+  GOOGLE_FONTS_API_KEY: 'YOUR_API_KEY',
+};
