@@ -1,4 +1,4 @@
-const shortcodes = require('../shortcodes');
+const shortcodes = require('../src/shortcodes');
 
 const { table, col, row } = shortcodes.paired;
 const {
@@ -24,11 +24,11 @@ describe('col', () => {
 describe('key', () => {
   test('Split shortcut string', () => {
     expect(key('Ctrl+B,D'))
-      .toBe('<span class="shortcut"><span class="key">Ctrl</span> + <span class="key">B</span> , <span class="key">D</span></span>');
+      .toBe('<span class="shortcut"><kbd class="key">Ctrl</kbd> + <kbd class="key">B</kbd> , <kbd class="key">D</kbd></span>');
   });
   test('Single key', () => {
     expect(key('Enter'))
-      .toBe('<span class="shortcut"><span class="key">Enter</span></span>');
+      .toBe('<span class="shortcut"><kbd class="key">Enter</kbd></span>');
   });
 });
 

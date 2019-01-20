@@ -10,7 +10,7 @@ function col(slot, span = 1) {
 }
 
 function singleKey(keyLabel) {
-  return `<span class="key">${keyLabel}</span>`;
+  return `<kbd class="key">${keyLabel}</kbd>`;
 }
 
 function key(sequence) {
