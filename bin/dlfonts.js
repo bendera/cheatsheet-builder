@@ -8,10 +8,10 @@ const path = require('path');
 const config = require('../config.js');
 
 const writeFile = promisify(fs.writeFile);
-const copyFile = promisify(fs.copyFile);
 
-const dockerFonts = path.resolve(__dirname, '../docker/fonts/');
-const cssFonts = path.resolve(__dirname, '../src/eleventy/assets/fonts/');
+const dockerFontsDir = path.resolve(__dirname, '../docker/fonts/');
+const cssFontsDir = path.resolve(__dirname, '../src/eleventy/assets/fonts/');
+const cssDir = path.resolve(__dirname, '../src/styles/includes/fonts/');
 const requestedFonts = [];
 
 process.argv.forEach((el, i) => {
@@ -26,23 +26,23 @@ const GFONTS_API_URL = `https://www.googleapis.com/webfonts/v1/webfonts?sort=alp
 
 const variantMap = {
   100: { weight: 100, name: 'Thin', style: 'normal' },
-  '100italic': { weight: 100, name: 'ThinItalic', style: 'italic' },
+  '100italic': { weight: 100, name: 'Thin Italic', style: 'italic' },
   200: { weight: 200, name: 'ExtraLight', style: 'normal' },
-  '200italic': { weight: 200, name: 'ExtraLightItalic', style: 'italic' },
+  '200italic': { weight: 200, name: 'ExtraLight Italic', style: 'italic' },
   300: { weight: 300, name: 'Light', style: 'normal' },
-  '300italic': { weight: 300, name: 'LightItalic', style: 'italic' },
+  '300italic': { weight: 300, name: 'Light Italic', style: 'italic' },
   regular: { weight: 400, name: 'Regular', style: 'normal' },
   italic: { weight: 400, name: 'Italic', style: 'italic' },
   500: { weight: 500, name: 'Medium', style: 'normal' },
-  '500italic': { weight: 500, name: 'MediumItalic', style: 'italic' },
+  '500italic': { weight: 500, name: 'Medium Italic', style: 'italic' },
   600: { weight: 600, name: 'SemiBold', style: 'normal' },
-  '600italic': { weight: 600, name: 'SemiBoldItalic', style: 'italic' },
+  '600italic': { weight: 600, name: 'SemiBold Italic', style: 'italic' },
   700: { weight: 700, name: 'Bold', style: 'normal' },
-  '700italic': { weight: 700, name: 'BoldItalic', style: 'italic' },
+  '700italic': { weight: 700, name: 'Bold Italic', style: 'italic' },
   800: { weight: 800, name: 'ExtraBold', style: 'normal' },
-  '800italic': { weight: 800, name: 'ExtraBoldItalic', style: 'italic' },
+  '800italic': { weight: 800, name: 'ExtraBold Italic', style: 'italic' },
   900: { weight: 900, name: 'Black', style: 'normal' },
-  '9900italic': { weight: 900, name: 'BlackItalic', style: 'italic' },
+  '900italic': { weight: 900, name: 'Black Italic', style: 'italic' },
 };
 
 function pascalCase(words) {
@@ -76,7 +76,6 @@ function searchFamilyIndex(items, value) {
 }
 
 const getFont = async (url) => {
-  const spinner = ora('Loading font').start();
   const u = new URL(url);
   const filename = path.basename(u.pathname);
 
@@ -84,34 +83,57 @@ const getFont = async (url) => {
     const response = await fetch(url);
     const data = await response.buffer();
 
-    spinner.succeed(`${filename} loaded`);
-
     return {
       filename,
       data,
     };
   } catch (error) {
-    spinner.fail(error);
     throw error;
   }
 };
 
+const getCss = (params) => {
+  const {
+    familyName,
+    localName,
+    fileName,
+    weight,
+    style,
+  } = params;
+
+  return `
+  @font-face {
+    font-family: '${familyName}';
+    src: local('${localName}'), url('../fonts/${fileName}') format('truetype');
+    font-weight: ${weight};
+    font-style: ${style};
+  }
+  `;
+};
+
 const getFamily = async (name, files) => {
-  // console.dir(familyMeta);
   const variants = Object.keys(files);
 
   for (const variant of variants) {
-    // console.log(variant);
-    const { filename, data } = await getFont(files[variant]);
+    const { data } = await getFont(files[variant]);
 
-    const friendlyFn = `${pascalCase(name)}-${variantMap[variant].name}.ttf`;
+    const friendlyBasename = `${pascalCase(name)}-${variantMap[variant].name.replace(/\s+/g, '')}`;
+    const familyName = name;
+    const fileName = `${friendlyBasename}.ttf`;
+    const localName = `${name} ${variantMap[variant].name}`;
+    const { weight, style } = variantMap[variant];
 
-    console.log(friendlyFn);
-    console.log(`${dockerFonts}/${friendlyFn}`);
-    console.log(`${cssFonts}/${friendlyFn}`);
+    const css = getCss({
+      familyName,
+      localName,
+      fileName,
+      weight,
+      style,
+    });
 
-    await writeFile(`${dockerFonts}/${friendlyFn}`, data, { encoding: 'binary' });
-    await copyFile(`${cssFonts}/${friendlyFn}`, `${dockerFonts}/${friendlyFn}`);
+    await writeFile(`${dockerFontsDir}/${friendlyBasename}.ttf`, data, { encoding: 'binary' });
+    await writeFile(`${cssFontsDir}/${friendlyBasename}.ttf`, data, { encoding: 'binary' });
+    await writeFile(`${cssDir}/${friendlyBasename}.css`, css);
   }
 
   return true;
@@ -125,24 +147,15 @@ const getData = async (url) => {
     const json = await response.json();
 
     spinner.succeed('Font info loaded');
-
-    /*
-    const { filename, data } = await getFont(json.items[0].files.regular);
-
-    const anyad = await writeFile(filename, data, { encoding: 'binary' });
-    */
+    spinner.start('Loading fonts');
 
     for (const f of requestedFonts) {
       const { family, files } = json.items[searchFamilyIndex(json.items, f)];
 
-      const ret = await getFamily(family, files);
-
-      // console.log(ret);
+      await getFamily(family, files);
     }
 
-    /* if (error) {
-      spinner.fail(error);
-    } */
+    spinner.succeed('Fonts loaded');
   } catch (error) {
     spinner.fail(error);
   }
