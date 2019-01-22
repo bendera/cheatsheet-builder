@@ -3,6 +3,8 @@
 
 dist/
 node_modules/
+docker/fonts/*.ttf
+!docker/fonts/AdobeBlank.ttf
 src/eleventy/assets/styles/*.css
 src/eleventy/assets/styles/*.map
 config.js

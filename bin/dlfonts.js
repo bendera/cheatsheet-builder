@@ -131,7 +131,6 @@ const getFamily = async (name, files) => {
       style,
     });
 
-    await writeFile(`${dockerFontsDir}/${friendlyBasename}.ttf`, data, { encoding: 'binary' });
     await writeFile(`${cssFontsDir}/${friendlyBasename}.ttf`, data, { encoding: 'binary' });
     await writeFile(`${cssDir}/${friendlyBasename}.css`, css);
   }

@@ -20,7 +20,7 @@ RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretc
     && rm wkhtmltox_0.12.5-1.stretch_amd64.deb \
     && apt-get clean
 
-COPY docker/fonts/*.ttf /usr/local/share/fonts
+COPY src/eleventy/assets/fonts/*.ttf /usr/local/share/fonts
 RUN fc-cache -f -v
 
 COPY docker/scripts/entrypoint /usr/bin/entrypoint

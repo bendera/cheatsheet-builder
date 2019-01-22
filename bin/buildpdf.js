@@ -8,8 +8,8 @@ async function buildPdf(params) {
   const { slug, orientation } = params;
 
   const paramList = [
-    'wkhtmltopdf',
-    '--log-level warn',
+    'docker run -v $(pwd)/dist:/dist/ wkhtmltox',
+    '--log-level info',
     `--orientation ${orientation}`,
     '--disable-smart-shrinking',
     '--zoom 1',
@@ -22,7 +22,8 @@ async function buildPdf(params) {
   ];
 
   try {
-    await exec(paramList.join(' '));
+    const out = await exec(paramList.join(' '));
+    console.log(out);
   } catch (e) {
     console.log('wkhtml error');
     console.log('cmd:', e.cmd.trim());
