@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-restricted-syntax */
 const fs = require('fs');
 const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const execAsync = util.promisify(require('child_process').exec);
 const rimraf = require('rimraf');
 
 function buildPdf(params) {
@@ -22,7 +22,7 @@ function buildPdf(params) {
       `dist/pdf/${slug}.pdf`,
     ];
 
-    exec(paramList.join(' '))
+    execAsync(paramList.join(' '))
       .then(() => {
         resolve(`${slug}.pdf created`);
       })
@@ -38,32 +38,6 @@ function* buildQueue(buildParams) {
   }
 }
 
-/* async function buildAll(buildParams) {
-  let res;
-
-  try {
-    res = await exec('wkhtmltopdf --version');
-  } catch (e) {
-    console.log(e.stderr);
-    process.exit(1);
-  }
-
-  if (!(/0.12.5/.test(res.stdout) && /qt/.test(res.stdout))) {
-    console.log('WARN: Your wkhtmltopdf version is:', res.stdout.trim());
-    console.log('WARN: Preferred: wkhtmltopdf 0.12.5 (with patched qt)');
-  }
-
-  for (const item of buildParams) {
-    buildPdf(item)
-      .then(() => {
-        process.exit();
-      })
-      .catch(() => {
-        process.exit();
-      });
-  }
-} */
-
 fs.readFile('dist/buildparams.json', 'utf8', (err, data) => {
   if (err) throw err;
 
@@ -73,23 +47,20 @@ fs.readFile('dist/buildparams.json', 'utf8', (err, data) => {
 
       const buildParams = JSON.parse(data);
       const queue = buildQueue(buildParams);
-      let done = false;
 
-      while (!done) {
-        const actual = queue.next();
+      const step = (nextPromise) => {
+        nextPromise.then((val) => {
+          console.log(val);
 
-        done = actual.done;
+          const np = queue.next();
 
-        actual.value
-          .then((out) => {
-            console.log(out);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+          if (!np.done) {
+            step(np.value);
+          }
+        });
+      };
 
-      // buildAll(JSON.parse(data));
+      step(queue.next().value);
     });
   });
 });
