@@ -4,37 +4,41 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const rimraf = require('rimraf');
 
-async function buildPdf(params) {
-  const { slug, orientation } = params;
+function buildPdf(params) {
+  return new Promise((resolve, reject) => {
+    const { slug, orientation } = params;
 
-  const paramList = [
-    'docker run -v $(pwd)/dist:/dist/ wkhtmltox',
-    '--log-level info',
-    `--orientation ${orientation}`,
-    '--disable-smart-shrinking',
-    '--zoom 1',
-    '-T 10mm',
-    '-R 10mm',
-    '-B 10mm',
-    '-L 10mm',
-    `dist/cheatsheets/${slug}/index.html`,
-    `dist/pdf/${slug}.pdf`,
-  ];
+    const paramList = [
+      'docker run -v $(pwd)/dist:/dist/ wkhtmltox',
+      '--log-level warn',
+      `--orientation ${orientation}`,
+      '--disable-smart-shrinking',
+      '--zoom 1',
+      '-T 10mm',
+      '-R 10mm',
+      '-B 10mm',
+      '-L 10mm',
+      `dist/cheatsheets/${slug}/index.html`,
+      `dist/pdf/${slug}.pdf`,
+    ];
 
-  try {
-    const out = await exec(paramList.join(' '));
-    console.log(out);
-  } catch (e) {
-    console.log('wkhtml error');
-    console.log('cmd:', e.cmd.trim());
-    console.log(e.stderr.trim());
-    process.exit(1);
-  }
-
-  console.log(`[wkhtmltopdf] dist/pdf/${slug}.pdf created`);
+    exec(paramList.join(' '))
+      .then(() => {
+        resolve(`${slug}.pdf created`);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
-async function buildAll(buildParams) {
+function* buildQueue(buildParams) {
+  for (const item of buildParams) {
+    yield buildPdf(item);
+  }
+}
+
+/* async function buildAll(buildParams) {
   let res;
 
   try {
@@ -50,9 +54,15 @@ async function buildAll(buildParams) {
   }
 
   for (const item of buildParams) {
-    buildPdf(item);
+    buildPdf(item)
+      .then(() => {
+        process.exit();
+      })
+      .catch(() => {
+        process.exit();
+      });
   }
-}
+} */
 
 fs.readFile('dist/buildparams.json', 'utf8', (err, data) => {
   if (err) throw err;
@@ -60,7 +70,26 @@ fs.readFile('dist/buildparams.json', 'utf8', (err, data) => {
   rimraf('dist/pdf', () => {
     fs.mkdir('dist/pdf', { recursive: true }, (e) => {
       if (e) throw e;
-      buildAll(JSON.parse(data));
+
+      const buildParams = JSON.parse(data);
+      const queue = buildQueue(buildParams);
+      let done = false;
+
+      while (!done) {
+        const actual = queue.next();
+
+        done = actual.done;
+
+        actual.value
+          .then((out) => {
+            console.log(out);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      // buildAll(JSON.parse(data));
     });
   });
 });
