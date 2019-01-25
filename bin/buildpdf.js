@@ -1,28 +1,33 @@
 /* eslint-disable no-console, no-restricted-syntax */
 const fs = require('fs');
 const util = require('util');
-const execAsync = util.promisify(require('child_process').exec);
+const { exec } = require('child_process');
 const rimraf = require('rimraf');
+const path = require('path');
+
+const execAsync = util.promisify(exec);
+const pwd = path.resolve(__dirname, '../');
 
 function buildPdf(params) {
   return new Promise((resolve, reject) => {
     const { slug, orientation } = params;
-
+    const command = 'docker';
     const paramList = [
-      'docker run -v $(pwd)/dist:/dist/ wkhtmltox',
-      '--log-level warn',
-      `--orientation ${orientation}`,
+      'run', '-v', `${pwd}/dist:/dist/`,
+      'wkhtmltox',
+      '--log-level', 'info',
+      '--orientation', `${orientation}`,
       '--disable-smart-shrinking',
-      '--zoom 1',
-      '-T 10mm',
-      '-R 10mm',
-      '-B 10mm',
-      '-L 10mm',
+      '--zoom', '1',
+      '-T', '10mm',
+      '-R', '10mm',
+      '-B', '10mm',
+      '-L', '10mm',
       `dist/cheatsheets/${slug}/index.html`,
       `dist/pdf/${slug}.pdf`,
     ];
 
-    execAsync(paramList.join(' '))
+    execAsync([command, ...paramList].join(' '))
       .then(() => {
         resolve(`${slug}.pdf created`);
       })
