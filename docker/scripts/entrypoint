@@ -1,12 +1,14 @@
 #!/bin/bash
 
-for last; do true; done
-filename=$(basename $last)
+# for last; do true; done
+# filename=$(basename $last)
 
-case "$filename" in
-  *.pdf) binary=wkhtmltopdf ;;
-  *.png) binary=wkhtmltoimage ;;
-  *) exit;;
-esac
+# case "$filename" in
+#   *.pdf) binary=wkhtmltopdf ;;
+#   *.png) binary=wkhtmltoimage ;;
+#   *) exit;;
+# esac
 
-"${binary[@]}" "$@"
+# "${binary[@]}" "$@"
+
+ls /workdir

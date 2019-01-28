@@ -13,8 +13,10 @@ function buildPdf(params) {
     const { slug, orientation } = params;
     const command = 'docker';
     const paramList = [
-      'run', '-v', `${pwd}/dist:/dist/`,
+      'exec',
       'wkhtmltox',
+      '/bin/bash',
+      'wkhtmltopdf',
       '--log-level', 'info',
       '--orientation', `${orientation}`,
       '--disable-smart-shrinking',
@@ -23,8 +25,8 @@ function buildPdf(params) {
       '-R', '10mm',
       '-B', '10mm',
       '-L', '10mm',
-      `dist/cheatsheets/${slug}/index.html`,
-      `dist/pdf/${slug}.pdf`,
+      `/dist/cheatsheets/${slug}/index.html`,
+      `/dist/pdf/${slug}.pdf`,
     ];
 
     execAsync([command, ...paramList].join(' '))

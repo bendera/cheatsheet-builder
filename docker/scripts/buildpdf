@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# https://github.com/bendera/cheatsheet-builder/blob/35ff3ebd402f1138550e06c47a73030e0d47a60b/build-pdf.sh
+# docker run --rm -v "$(pwd)":/workdir wkhtmltox
+
+rm -rf /workdir/dist/pdf
+mkdir /workdir/dist/pdf
+
+IFS='|' read -r -a files <<< $(cat /workdir/dist/buildparams.txt)
+
+for f in "${files[@]}"
+do
+  IFS=',' read -r -a finfo <<< $f
+  slug="${finfo[0]}"
+  orientation="${finfo[1]}"
+
+  echo [wkhtmltopdf] Build dist/cheatsheets/$slug/cheatsheet.pdf
+
+  wkhtmltopdf \
+    --log-level warn \
+    --orientation $orientation \
+    --disable-smart-shrinking \
+    --zoom 1 \
+    -T 10mm \
+    -R 10mm \
+    -B 10mm \
+    -L 10mm \
+    /workdir/dist/cheatsheets/$slug/index.html /workdir/dist/pdf/$slug.pdf
+done
