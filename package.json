@@ -4,7 +4,7 @@
   "description": "",
   "main": ".eleventy.js",
   "scripts": {
-    "build": "node ./bin/buildcss.js && eleventy && node ./bin/buildpdf.js",
+    "build": "node ./bin/buildcss.js && eleventy && /bin/bash bin/buildpdf.sh",
     "build:html": "node ./bin/buildcss.js && eleventy",
     "build:styles": "node ./bin/buildcss.js",
     "build:pdf": "node ./bin/buildpdf.js",
