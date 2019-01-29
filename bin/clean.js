@@ -1,12 +1,18 @@
 /* eslint-disable no-console */
 const rimraf = require('rimraf');
 
-let pattern = '+(';
-pattern += 'dist/';
-pattern += 'src/eleventy/assets/styles/*.css';
-pattern += 'src/eleventy/assets/styles/*.css.map';
-pattern += ')';
+const paths = [
+  'dist',
+  'src/eleventy/assets/styles/*.css',
+  'src/eleventy/assets/styles/*.css.map',
+];
 
-rimraf(pattern, () => {
-  console.log('Clean completed');
+paths.forEach((path) => {
+  rimraf(path, (err) => {
+    if (err) {
+      console.log('[ERR]', err.toString());
+    } else {
+      console.log(`${path} removed`);
+    }
+  });
 });
