@@ -10,7 +10,7 @@ const postcssRem = require('postcss-rem');
 
 const inputDir = 'src/styles/';
 const outputDir = 'src/eleventy/assets/styles/';
-const files = ['main.css', 'cheatsheets.css'];
+const files = ['main.postcss', 'cheatsheets.postcss'];
 
 const watch = process.argv.indexOf('--watch') > -1;
 
@@ -54,7 +54,9 @@ function buildCss(from, to) {
 
 function buildAll() {
   files.forEach((file) => {
-    buildCss(inputDir + file, outputDir + file);
+    const outputFile = file.replace(/.postcss$/g, '.css');
+
+    buildCss(inputDir + file, outputDir + outputFile);
   });
 }
 
