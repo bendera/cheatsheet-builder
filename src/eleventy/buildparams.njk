@@ -1,11 +1,6 @@
 ---
-permalink: buildparams.json
+permalink: buildparams.txt
 ---
-[
 {%- for item in collections.cheatsheet -%}
-{
-  "slug": "{{item.fileSlug}}",
-  "orientation": "{{item.data.orientation}}"
-}{% if not loop.last %},{% endif %}
+{{item.fileSlug}},{{item.data.orientation}}{% if not loop.last %}|{% endif %}
 {%- endfor -%}
-]
