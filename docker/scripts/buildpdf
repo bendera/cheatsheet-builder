@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# https://github.com/bendera/cheatsheet-builder/blob/35ff3ebd402f1138550e06c47a73030e0d47a60b/build-pdf.sh
-# docker run --rm -v "$(pwd)":/workdir wkhtmltox
-
 rm -rf /workdir/dist/pdf
 mkdir /workdir/dist/pdf
 
