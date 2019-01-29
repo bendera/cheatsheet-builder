@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{customCss}}">
   {% endif %}
 </head>
-<body>
+<body class="{% if baseTheme %}{{ baseTheme }}{% else %}true-color{% endif %}">
   <div class="page" id="page">
     {{ content | safe }}
   </div>
