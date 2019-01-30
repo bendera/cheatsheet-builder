@@ -4,7 +4,7 @@ layout: default
 <div>
   <pre id="cheatsheet-info"></pre>
 </div>
-{% for item in collections.cheatsheet %}
+{% for item in collections.cheatsheets %}
   <li><a href="/cheatsheets/{{ item.fileSlug }}" class="js-pager-link">{{ item.data.title }}</a></li>
 {% endfor %}
 <a download id="pdf-download">pdf</a>

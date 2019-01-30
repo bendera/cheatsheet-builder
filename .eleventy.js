@@ -18,6 +18,22 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/eleventy/assets/styles');
   eleventyConfig.addPassthroughCopy('src/eleventy/assets/fonts');
 
+  eleventyConfig.addCollection('cheatsheets', function(collection) {
+    const coll = collection.getFilteredByTag('cheatsheet');
+
+    coll.sort((a, b) => {
+      if (a.data.title < b.data.title) {
+        return -1;
+      } else if(a.data.title > b.data.title) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    return coll;
+  });
+
   return {
     templateFormats:[
       'njk',
