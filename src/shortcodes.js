@@ -56,6 +56,20 @@ function tr(...cells) {
   return tableRow('td', ...cells);
 }
 
+function thr(...cells) {
+  let html = '<tr>';
+
+  cells.forEach((val, index) => {
+    html += index === 0 ? '<th scope="row">' : '<td>';
+    html += val;
+    html += index === 0 ? '</th>' : '</td>';
+  });
+
+  html += '</tr>';
+
+  return html;
+}
+
 function thead(...cells) {
   let html = '<thead>';
 
@@ -96,6 +110,7 @@ module.exports = {
     key,
     tcaption,
     tr,
+    thr,
     thead,
     tfoot,
   },

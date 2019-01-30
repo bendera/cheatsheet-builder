@@ -4,6 +4,7 @@ const { table, col, row } = shortcodes.paired;
 const {
   key,
   tr,
+  thr,
   thead,
   tfoot,
 } = shortcodes.single;
@@ -51,6 +52,17 @@ describe('tr', () => {
   test('Multiple columns', () => {
     expect(tr('Lorem', 'Ipsum', 'Dolor', 'Sit'))
       .toBe('<tr><td>Lorem</td><td>Ipsum</td><td>Dolor</td><td>Sit</td></tr>');
+  });
+});
+
+describe('thr', () => {
+  test('Single column', () => {
+    expect(thr('Lorem'))
+      .toBe('<tr><th scope="row">Lorem</th></tr>');
+  });
+  test('Multiple columns', () => {
+    expect(thr('Lorem', 'Ipsum', 'Dolor', 'Sit'))
+      .toBe('<tr><th scope="row">Lorem</th><td>Ipsum</td><td>Dolor</td><td>Sit</td></tr>');
   });
 });
 
