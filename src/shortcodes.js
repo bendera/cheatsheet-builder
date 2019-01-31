@@ -1,8 +1,7 @@
 const HighlightPairedShortcode = require('@11ty/eleventy-plugin-syntaxhighlight/src/HighlightPairedShortcode');
-const stripIndent = require('strip-indent');
 /**
- * @param  {string} block
- * @param  {Object[]} modifiers
+ * @param {string} block
+ * @param {Object[]} modifiers
  */
 function bemClassname(block, ...modifiers) {
   let className = modifiers.map(el => `${block}--${el}`).join(' ');
@@ -11,10 +10,17 @@ function bemClassname(block, ...modifiers) {
   return className;
 }
 
+/**
+ * @param {string} slot
+ */
 function row(slot) {
   return `<div class="row">${slot}</div>`;
 }
 
+/**
+ * @param {string} slot
+ * @param {number} span
+ */
 function col(slot, span = 1) {
   return `<div class="col col--span-${span}">${slot}</div>`;
 }
@@ -51,9 +57,11 @@ function section(slot, title, ...styles) {
 }
 
 function table(slot, caption, ...styles) {
+  const captionHTML = caption !== '' ? `<caption>${caption}</caption>` : '';
+
   return `
     <table class="${bemClassname('table', ...styles)}">
-      <caption>${caption}</caption>
+      ${captionHTML}
       ${slot}
     </table>
   `;

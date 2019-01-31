@@ -1,3 +1,4 @@
+const stripIndent = require('strip-indent');
 const shortcodes = require('../src/shortcodes');
 
 const {
@@ -50,10 +51,21 @@ describe('key', () => {
 });
 
 describe('table', () => {
+  const expected1 = stripIndent(`
+    <table class="table">
+      <caption>Test caption</caption>
+      test
+    </table>
+  `);
+  const received1 = stripIndent(table('test', 'Test caption'));
+
   test('Default style', () => {
-    expect(table('<tr><td>Lorem</td></tr>'))
-      .toBe('<table class="table"><tr><td>Lorem</td></tr></table>');
+    expect(received1).toBe(expected1);
   });
+
+  const expected2 = stripIndent(`
+  `);
+  const received2 = stripIndent(table('test', 'Test caption', 'lorem', 'ipsum'));
   test('Multiple styles', () => {
     expect(table('<tr><td>Lorem</td></tr>', 'lorem', 'ipsum'))
       .toBe('<table class="table table--lorem table--ipsum"><tr><td>Lorem</td></tr></table>');
