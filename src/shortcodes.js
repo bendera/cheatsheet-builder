@@ -27,6 +27,21 @@ function key(sequence) {
   return html;
 }
 
+function section(slot, title, ...styles) {
+  let html = '';
+  let className = styles.map(el => `section--${el}`).join(' ');
+  className = className !== '' ? `section ${className}` : 'section';
+
+  html += `<section class="${className}">`;
+  html += `<h2 class="section__header">${title}</h2>`;
+  html += '<div class="section__body">';
+  html += slot;
+  html += '</div>';
+  html += '</section>';
+
+  return html;
+}
+
 function table(slot, ...styles) {
   let classes = [...styles];
 
@@ -104,6 +119,7 @@ module.exports = {
     row,
     col,
     table,
+    section,
     code,
   },
   single: {

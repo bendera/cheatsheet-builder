@@ -8,20 +8,24 @@ orientation: landscape
 {% row %}
   {% col 4 %}
 
-    <section class="section section--shaded section--rounded">
-      <h2 class="section__header">Section #1</h2>
-      <div class="section__body">
-        {% key 'Ctrl+B,D' %}
-        {% table 'bordered', 'zebra' %}
-          {% tcaption 'Demo table' %}
-          {% thead 'lorem', 'ipsum', 'dolor' %}
-          {% tr '111', '222', '333' %}
-          {% tr '444', '555', '666' %}
-          {% tr '777', '888', '999' %}
-          {% tfoot 'lorem', 'ipsum', 'dolor' %}
-        {% endtable %}
-      </div>
-    </section>
+    {% section 'Section <i>foo</i>' %}
+      {% table 'bordered', 'zebra' %}
+        {% tcaption 'Demo table' %}
+        {% thead 'lorem', 'ipsum', 'dolor' %}
+        {% tr '111', '222', '333' %}
+        {% tr '444', '555', '666' %}
+        {% tr '777', '888', '999' %}
+        {% tfoot 'lorem', 'ipsum', 'dolor' %}
+      {% endtable %}
+      {% table %}
+        {% tcaption 'Table with row headers' %}
+        {% thr 'lorem', 'ipsum', 'dolor' %}
+        {% thr 'dolor', 'sit', 'amur' %}
+      {% endtable %}
+    {% endsection %}
+
+    {% section 'Section shaded, rounded', 'shaded', 'rounded' %}
+    {% endsection %}
 
     {% key 'Ctrl+B,D' %}
 

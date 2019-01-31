@@ -1,6 +1,11 @@
 const shortcodes = require('../src/shortcodes');
 
-const { table, col, row } = shortcodes.paired;
+const {
+  table,
+  section,
+  col,
+  row,
+} = shortcodes.paired;
 const {
   key,
   tr,
@@ -19,6 +24,17 @@ describe('col', () => {
   });
   test('span should be 12', () => {
     expect(col('<p>test</p>', '12')).toBe('<div class="col col--span-12"><p>test</p></div>');
+  });
+});
+
+describe('section', () => {
+  test('Default style', () => {
+    expect(section('foo', 'bar'))
+      .toBe('<section class="section"><h2 class="section__header">bar</h2><div class="section__body">foo</div></section>');
+  });
+  test('Multiple styles', () => {
+    expect(section('foo', 'bar', 'bordered', 'shaded'))
+      .toBe('<section class="section section--bordered section--shaded"><h2 class="section__header">bar</h2><div class="section__body">foo</div></section>');
   });
 });
 
