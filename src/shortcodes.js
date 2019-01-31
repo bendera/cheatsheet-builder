@@ -1,5 +1,15 @@
 const HighlightPairedShortcode = require('@11ty/eleventy-plugin-syntaxhighlight/src/HighlightPairedShortcode');
 const stripIndent = require('strip-indent');
+/**
+ * @param  {string} block
+ * @param  {Object[]} modifiers
+ */
+function bemClassname(block, ...modifiers) {
+  let className = modifiers.map(el => `${block}--${el}`).join(' ');
+  className = className !== '' ? `${block} ${className}` : block;
+
+  return className;
+}
 
 function row(slot) {
   return `<div class="row">${slot}</div>`;
@@ -29,10 +39,8 @@ function key(sequence) {
 
 function section(slot, title, ...styles) {
   let html = '';
-  let className = styles.map(el => `section--${el}`).join(' ');
-  className = className !== '' ? `section ${className}` : 'section';
 
-  html += `<section class="${className}">`;
+  html += `<section class="${bemClassname('section', ...styles)}">`;
   html += `<h2 class="section__header">${title}</h2>`;
   html += '<div class="section__body">';
   html += slot;
@@ -42,13 +50,13 @@ function section(slot, title, ...styles) {
   return html;
 }
 
-function table(slot, ...styles) {
-  let classes = [...styles];
-
-  classes = classes.map(e => `table--${e}`);
-  classes = ['table', ...classes];
-
-  return `<table class="${classes.join(' ')}">${slot}</table>`;
+function table(slot, caption, ...styles) {
+  return `
+    <table class="${bemClassname('table', ...styles)}">
+      <caption>${caption}</caption>
+      ${slot}
+    </table>
+  `;
 }
 
 function tcaption(caption) {
