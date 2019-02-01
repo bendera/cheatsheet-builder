@@ -1,4 +1,5 @@
 const HighlightPairedShortcode = require('@11ty/eleventy-plugin-syntaxhighlight/src/HighlightPairedShortcode');
+
 /**
  * @param {string} block
  * @param {Object[]} modifiers
@@ -61,16 +62,14 @@ function key(sequence) {
  * @returns {string}
  */
 function section(slot, title, ...styles) {
-  let html = '';
-
-  html += `<section class="${bemClassname('section', ...styles)}">`;
-  html += `<h2 class="section__header">${title}</h2>`;
-  html += '<div class="section__body">';
-  html += slot;
-  html += '</div>';
-  html += '</section>';
-
-  return html;
+  return `
+    <section class="${bemClassname('section', ...styles)}">
+      <h2 class="section__header">${title}</h2>
+      <div class="section__body">
+        ${slot}
+      </div>
+    </section>
+  `;
 }
 
 /**

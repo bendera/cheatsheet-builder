@@ -16,26 +16,44 @@ const {
 } = shortcodes.single;
 
 test('row', () => {
-  expect(row('<p>test</p>')).toBe('<div class="row"><p>test</p></div>');
+  expect(row('test')).toBe('<div class="row">test</div>');
 });
 
 describe('col', () => {
   test('default span is 1', () => {
-    expect(col('<p>test</p>')).toBe('<div class="col col--span-1"><p>test</p></div>');
+    expect(col('test')).toBe('<div class="col col--span-1">test</div>');
   });
   test('span should be 12', () => {
-    expect(col('<p>test</p>', '12')).toBe('<div class="col col--span-12"><p>test</p></div>');
+    expect(col('test', '12')).toBe('<div class="col col--span-12">test</div>');
   });
 });
 
 describe('section', () => {
+  const received1 = stripIndent(section('foo', 'bar'));
+  const received2 = stripIndent(section('foo', 'bar', 'bordered', 'shaded'));
+
+  const expected1 = stripIndent(`
+    <section class="section">
+      <h2 class="section__header">bar</h2>
+      <div class="section__body">
+        foo
+      </div>
+    </section>
+  `);
+  const expected2 = stripIndent(`
+    <section class="section section--bordered section--shaded">
+      <h2 class="section__header">bar</h2>
+      <div class="section__body">
+        foo
+      </div>
+    </section>
+  `);
+
   test('Default style', () => {
-    expect(section('foo', 'bar'))
-      .toBe('<section class="section"><h2 class="section__header">bar</h2><div class="section__body">foo</div></section>');
+    expect(received1).toBe(expected1);
   });
   test('Multiple styles', () => {
-    expect(section('foo', 'bar', 'bordered', 'shaded'))
-      .toBe('<section class="section section--bordered section--shaded"><h2 class="section__header">bar</h2><div class="section__body">foo</div></section>');
+    expect(received2).toBe(expected2);
   });
 });
 
@@ -51,24 +69,27 @@ describe('key', () => {
 });
 
 describe('table', () => {
+  const received1 = stripIndent(table('test', 'Test caption'));
+  const received2 = stripIndent(table('test', 'Test caption', 'lorem', 'ipsum'));
+
   const expected1 = stripIndent(`
     <table class="table">
       <caption>Test caption</caption>
       test
     </table>
   `);
-  const received1 = stripIndent(table('test', 'Test caption'));
+  const expected2 = stripIndent(`
+    <table class="table table--lorem table--ipsum">
+      <caption>Test caption</caption>
+      test
+    </table>
+  `);
 
   test('Default style', () => {
     expect(received1).toBe(expected1);
   });
-
-  const expected2 = stripIndent(`
-  `);
-  const received2 = stripIndent(table('test', 'Test caption', 'lorem', 'ipsum'));
   test('Multiple styles', () => {
-    expect(table('<tr><td>Lorem</td></tr>', 'lorem', 'ipsum'))
-      .toBe('<table class="table table--lorem table--ipsum"><tr><td>Lorem</td></tr></table>');
+    expect(received2).toBe(expected2);
   });
 });
 
