@@ -2,6 +2,7 @@ const HighlightPairedShortcode = require('@11ty/eleventy-plugin-syntaxhighlight/
 /**
  * @param {string} block
  * @param {Object[]} modifiers
+ * @returns {string}
  */
 function bemClassname(block, ...modifiers) {
   let className = modifiers.map(el => `${block}--${el}`).join(' ');
@@ -12,6 +13,7 @@ function bemClassname(block, ...modifiers) {
 
 /**
  * @param {string} slot
+ * @returns {string}
  */
 function row(slot) {
   return `<div class="row">${slot}</div>`;
@@ -20,15 +22,24 @@ function row(slot) {
 /**
  * @param {string} slot
  * @param {number} span
+ * @returns {string}
  */
 function col(slot, span = 1) {
   return `<div class="col col--span-${span}">${slot}</div>`;
 }
 
+/**
+ * @param {string} keyLabel
+ * @returns {string}
+ */
 function singleKey(keyLabel) {
   return `<kbd class="key">${keyLabel}</kbd>`;
 }
 
+/**
+ * @param {string} sequence
+ * @returns {string}
+ */
 function key(sequence) {
   const parts = sequence.split(/(\+|,)/);
 
@@ -43,6 +54,12 @@ function key(sequence) {
   return html;
 }
 
+/**
+ * @param {string} slot
+ * @param {string} title
+ * @param {...string} styles
+ * @returns {string}
+ */
 function section(slot, title, ...styles) {
   let html = '';
 
@@ -56,6 +73,12 @@ function section(slot, title, ...styles) {
   return html;
 }
 
+/**
+ * @param {string} slot
+ * @param {string} caption
+ * @param {...string} styles
+ * @returns {string}
+ */
 function table(slot, caption, ...styles) {
   const captionHTML = caption !== '' ? `<caption>${caption}</caption>` : '';
 
@@ -67,10 +90,19 @@ function table(slot, caption, ...styles) {
   `;
 }
 
+/**
+ * @param {string} caption
+ * @returns {string}
+ */
 function tcaption(caption) {
   return `<caption>${caption}</caption>`;
 }
 
+/**
+ * @param {string} tag
+ * @param {...string} cells
+ * @returns {string}
+ */
 function tableRow(tag, ...cells) {
   let html = '<tr>';
 
@@ -83,10 +115,18 @@ function tableRow(tag, ...cells) {
   return html;
 }
 
+/**
+ * @param {...string} cells
+ * @returns {string}
+ */
 function tr(...cells) {
   return tableRow('td', ...cells);
 }
 
+/**
+ * @param {...string} cells
+ * @returns {string}
+ */
 function thr(...cells) {
   let html = '<tr>';
 
@@ -101,6 +141,10 @@ function thr(...cells) {
   return html;
 }
 
+/**
+ * @param {...string} cells
+ * @returns {string}
+ */
 function thead(...cells) {
   let html = '<thead>';
 
@@ -111,6 +155,10 @@ function thead(...cells) {
   return html;
 }
 
+/**
+ * @param {...string} cells
+ * @returns {string}
+ */
 function tfoot(...cells) {
   let html = '<tfoot>';
 
@@ -121,10 +169,17 @@ function tfoot(...cells) {
   return html;
 }
 
+/**
+ * @param {string} slot
+ * @param {string} lang
+ * @param {string} theme
+ * @param {string} highlightNumbers
+ * @returns {string}
+ */
 function code(slot, lang, theme = 'default', highlightNumbers) {
   let html = `<div class="${theme}">`;
 
-  html += HighlightPairedShortcode(stripIndent(slot), lang, highlightNumbers);
+  html += HighlightPairedShortcode(slot, lang, highlightNumbers);
   html += '</div>';
 
   return html;
