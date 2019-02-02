@@ -2,7 +2,7 @@ const chokidar = require('chokidar');
 const fs = require('fs');
 const postcss = require('postcss');
 const postcssAutoprefixer = require('autoprefixer');
-const postcssImport = require('postcss-import');
+const postcssEasyImport = require('postcss-easy-import');
 const postcssCssVariables = require('postcss-css-variables');
 const postcssCssnano = require('cssnano');
 const postcssNested = require('postcss-nested');
@@ -23,7 +23,9 @@ function buildCss(from, to) {
     }
 
     postcss([
-      postcssImport(),
+      postcssEasyImport({
+        extensions: ['.postcss', '.css'],
+      }),
       postcssCssVariables(),
       postcssNested(),
       postcssRem(),
@@ -61,7 +63,7 @@ function buildAll() {
 }
 
 if (watch) {
-  const watcher = chokidar.watch('src/styles/**/*');
+  const watcher = chokidar.watch(['src/styles/**/*', 'src/eleventy/cheatsheets/*/*.postcss']);
 
   watcher.on('add', (path) => {
     if (!started) {

@@ -45,7 +45,7 @@
     "ora": "^3.0.0",
     "postcss": "^7.0.10",
     "postcss-css-variables": "^0.11.0",
-    "postcss-import": "^12.0.1",
+    "postcss-easy-import": "^3.0.0",
     "postcss-nested": "^4.1.1",
     "postcss-rem": "^1.1.4",
     "precss": "^4.0.0",
