@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="{{customCss}}">
   {% endif %}
 </head>
-<body class="{% if baseTheme %}{{ baseTheme }}{% else %}true-color{% endif %}">
-  <div class="page" id="page">
+<body class="{% if baseTheme %}{{ baseTheme }}{% else %}true-color{% endif %}{% if bodyClass %} {{ bodyClass }}{% endif %}">
+  <div class="page {{ fileSlug }}" id="page">
     {{ content | safe }}
   </div>
   <script>

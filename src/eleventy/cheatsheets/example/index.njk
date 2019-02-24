@@ -8,20 +8,12 @@ orientation: landscape
 {% row %}
   {% col 4 %}
 
-    {% section 'Section <i>foo</i>' %}
-      {% table 'bordered', 'zebra' %}
-        {% tcaption 'Demo table' %}
-        {% thead 'lorem', 'ipsum', 'dolor' %}
-        {% tr '111', '222', '333' %}
-        {% tr '444', '555', '666' %}
-        {% tr '777', '888', '999' %}
-        {% tfoot 'lorem', 'ipsum', 'dolor' %}
-      {% endtable %}
-      {% table %}
-        {% tcaption 'Table with row headers' %}
-        {% thr 'lorem', 'ipsum', 'dolor' %}
-        {% thr 'dolor', 'sit', 'amur' %}
-      {% endtable %}
+    {% section 'Default' %}
+      Section default style
+    {% endsection %}
+
+    {% section 'Shaded, rounded, bordered', 'rounded', 'bordered', 'shaded' %}
+      More styles
     {% endsection %}
 
     {% section 'Section shaded, rounded', 'shaded', 'rounded' %}
