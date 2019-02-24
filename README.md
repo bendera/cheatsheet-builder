@@ -9,7 +9,7 @@ Boilerplate (framework?) for creating printable developer cheatsheets. See src/e
 
 ## Install
 
-Run following commands in the top level directory of the project:
+Download the [latest release](https://github.com/bendera/cheatsheet-builder/releases). Run following commands in the top level directory of the project:
 
 ```shell
 npm ci
