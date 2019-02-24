@@ -62,7 +62,6 @@ function searchFamilyIndex(items, value) {
   let middle = Math.floor((stopIndex + startIndex) / 2);
 
   while (items[middle].family !== value && startIndex < stopIndex) {
-
     if (value < items[middle].family) {
       stopIndex = middle - 1;
     } else if (value > items[middle].family) {
@@ -132,7 +131,7 @@ const getFamily = async (name, files) => {
     });
 
     await writeFile(`${cssFontsDir}/${friendlyBasename}.ttf`, data, { encoding: 'binary' });
-    await writeFile(`${cssDir}/${friendlyBasename}.css`, css);
+    await writeFile(`${cssDir}/${friendlyBasename}.postcss`, css);
   }
 
   return true;
