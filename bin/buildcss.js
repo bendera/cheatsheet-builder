@@ -29,7 +29,7 @@ function buildCss(from, to) {
       postcssCssVariables(),
       postcssNested(),
       postcssRem(),
-      postcssAutoprefixer({ browsers: 'last 2 version, chrome >= 13' }),
+      postcssAutoprefixer(),
       postcssCssnano(),
     ])
       .process(css, {
@@ -40,7 +40,7 @@ function buildCss(from, to) {
       .then((result) => {
         fs.writeFile(to, result.css, () => true);
         if (result.map) {
-          fs.writeFile(`${to}.map`, result.map, () => true);
+          fs.writeFile(`${to}.map`, result.map.toString(), () => true);
         }
 
         // eslint-disable-next-line no-console
