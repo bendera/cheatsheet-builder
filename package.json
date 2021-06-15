@@ -46,7 +46,7 @@
     "lodash-es": "^4.17.15",
     "node-fetch": "^2.6.0",
     "ora": "^5.0.0",
-    "postcss": "^7.0.32",
+    "postcss": "^7.0.36",
     "postcss-css-variables": "^0.17.0",
     "postcss-easy-import": "^3.0.0",
     "postcss-nested": "^4.2.3",
